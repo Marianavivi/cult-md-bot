@@ -20,27 +20,6 @@
  
 ----
 
-set the Env Vars.
-    <br>
-
-
-**Note:** You'll need to set these environment variables 
-
-| Variable | Description 
-|---|---| 
-| REMOVEBG_KEY | API key for www.remove.bg |
-| SESSION_ID | That You Have Got Via Pairing |
-| PREFIX | put any one symbol here except @,# and + , leave it Blank if you want to use multi prefix |
-| MODE | mode public or private |
-| autoRead | make it true if you want bot to read messages |
-| statusview | make it true if you want bot to view status | 
-| OWNERS | owner number e.g 254732647560| 
-| BOTNAME | Your Bot Name | 
-| antidelete | bot will forward deleted messages if you make it true | 
-
-
-----
-
 ## Deployment Options
 
 ### **Fork & Star the Repository**
