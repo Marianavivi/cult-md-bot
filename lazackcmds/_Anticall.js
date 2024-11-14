@@ -20,7 +20,7 @@ conn.ev.on("call", async callEvents => {
 
           // Message to be sent to the caller
           const warningMessage = {
-            text: `*ANTICALL IS ACTIVATED*\n*Please do not disturb by calling.*\n*Urgent matters? Contact the owner:*\n\nᴘʀɪɴᴄᴇ ᴍᴅ` 
+            text: `*ANTICALL IS ACTIVATED*\n*Please do not disturb by calling.*\n*Urgent matters? Contact the owner:*\n\🗽 CULT MD` 
           };
 
           // Send the warning message to the caller
