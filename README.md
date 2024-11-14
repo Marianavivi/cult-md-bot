@@ -165,7 +165,7 @@ npm install && npm start
 ```
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a><a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 
-- Star ⭐ the repo if you like CULTURE-MD.
+- Star ⭐ the repo if you like CULT-MD.
 
 6. #### CREDITS 
 
