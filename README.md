@@ -30,7 +30,7 @@
 ### **Pairing the Bot**
    - Visit the bot site to generate a pairing code and get SESSION ID.
 
-     [![cult session](https://img.shields.io/badge/Whatsapp-Pair%20Code-green?style=for-the-badge&logo=Whatsapp)](https://culturesession-6987a4749d66.herokuapp.com/pair/)
+     [![cult session](https://img.shields.io/badge/Whatsapp-Pair%20Code-green?style=for-the-badge&logo=Whatsapp)](https://culturesession-6987a4749d66.herokuapp.com/)
 
 ### **Step-by-Step Deployment Guide**
 
