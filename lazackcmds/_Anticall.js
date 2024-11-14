@@ -4,28 +4,40 @@ conn.ev.on("call", async callEvents => {
 
   if (isAntiCallEnabled) {
     for (let callEvent of callEvents) {
-      // Check if the call event is an incoming call (status "offer")
-      if (callEvent.status === "offer") {
+      if (callEvent.status === "offer") { 
         try {
+          // Get the caller's number
+          const callerNumber = callEvent.from;
+
+          // Check if the caller is in the allowed list (whitelist)
+          const allowedNumbers = [global.owner, "+1234567890"]; // Add allowed numbers here
+          const isAllowed = allowedNumbers.some(number => callerNumber.includes(number));
+
+          if (isAllowed) {
+            console.log("Call allowed from:", callerNumber);
+            continue; // Skip to the next call event
+          }
+
           // Message to be sent to the caller
           const warningMessage = {
-            text: "*ANTICALL IS ACTIVATED*\n*Please do not disturb me by calling repeatedly.*\n*Here is my bot owner's contact information.*\n\nᴘʀɪɴᴄᴇ ᴍᴅ"
+            text: `*ANTICALL IS ACTIVATED*\n*Please do not disturb by calling.*\n*Urgent matters? Contact the owner:*\n\nᴘʀɪɴᴄᴇ ᴍᴅ` 
           };
 
           // Send the warning message to the caller
-          let sentMessage = await conn.sendMessage(callEvent.from, warningMessage);
-          console.log("Warning message sent:", sentMessage);
+          let sentMsg = await conn.sendMessage(callerNumber, warningMessage);
+          console.log("Warning message sent:", sentMsg);
 
           // Send the bot owner's contact to the caller
-          await conn.sendContact(callEvent.from, global.owner, sentMessage);
-          console.log("Owner's contact sent to:", callEvent.from);
+          await conn.sendContact(callerNumber, global.owner, sentMsg);
+          console.log("Owner's contact sent to:", callerNumber);
 
           // Reject the incoming call
-          await conn.rejectCall(callEvent.id, callEvent.from);
-          console.log("Call rejected from:", callEvent.from);
+          await conn.rejectCall(callEvent.id, callerNumber); 
+          console.log("Call rejected from:", callerNumber);
 
         } catch (error) {
           console.error("Error handling call event:", error);
+          // Add more specific error handling if needed
         }
       }
     }
