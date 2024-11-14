@@ -157,7 +157,7 @@ curl -fsSl https://deb.nodesource.com/setup_lts.x | bash - && apt -y install nod
 apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 ```
 ```
-git clone https://github.com/<your gitHub Username>/CULTURE-MD
+git clone https://github.com/Marianavivi/cult-md-bot
 cd CULT-MD
 ```
 ```
