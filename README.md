@@ -1,5 +1,5 @@
 
-#### CULTURE | STILL MANY HIDDEN COMMANDS
+#### CULT | STILL A HIDDEN GEM
 
 <p align="center">  
   <a href="https://youtu.be/nE4v4KWBfAU">
@@ -168,10 +168,8 @@ npm install && npm start
 - Star ⭐ the repo if you like CULTURE-MD.
 
 6. #### CREDITS 
-<div><button id="boton" type="button">FG98F</button></div>
-<a href="https://github.com/FG98F"><img src="https://github.com/FG98F.png" width="100" height="100" alt="adiwajshing"/></a>
 
-<div><button id="boton" type="button">GURU322</button></div>
+<div><button id="boton" type="button">SILVA TECH</button></div>
 <a href="https://github.com/SilvaTechB"><img src="https://github.com/SilvaTechB.png" width="100" height="100" alt="adiwajshing"/></a>
 
 
