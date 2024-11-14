@@ -12,28 +12,40 @@ handler.before = async function (msg, { conn }) {
     const viewOnceContent = msg.mtype === "viewOnceMessageV2"
       ? msg.message.viewOnceMessageV2.message
       : msg.message.viewOnceMessageV2Extension.message;
-    mediaType = Object.keys(viewOnceContent)[0];  // Determines whether it's image, video, or audio
+    mediaType = Object.keys(viewOnceContent)[0]; // Determines whether it's image, video, or audio
+
+    // Validate media type
+    if (!["imageMessage", "videoMessage", "audioMessage"].includes(mediaType)) {
+      console.error('Unsupported media type:', mediaType);
+      return; // Exit if the message is not of a supported media type
+    }
 
     // Download media content based on media type
-    if (["imageMessage", "videoMessage", "audioMessage"].includes(mediaType)) {
+    try {
       const downloadType = mediaType === "imageMessage" ? "image"
                        : mediaType === "videoMessage" ? "video"
                        : "audio";
       mediaStream = await downloadContentFromMessage(viewOnceContent[mediaType], downloadType);
-    } else {
-      return; // Exit if the message is not of a supported media type
+    } catch (error) {
+      console.error('Failed to download media content:', error);
+      return;
     }
 
     // Collect all data chunks into a single Buffer
     mediaBuffer = Buffer.from([]);
-    for await (const chunk of mediaStream) {
-      mediaBuffer = Buffer.concat([mediaBuffer, chunk]);
+    try {
+      for await (const chunk of mediaStream) {
+        mediaBuffer = Buffer.concat([mediaBuffer, chunk]);
+      }
+    } catch (error) {
+      console.error('Failed to collect media data:', error);
+      return;
     }
 
     // Create a formatted information message
     const fileSize = formatFileSize(viewOnceContent[mediaType].fileLength);
     const infoMessage = `
-      *💀💀SILVA MD ANTI VIEW ONCE 💀💀*
+      *👀CULT MD ANTI VIEW ONCE👀*
       *Type:* ${mediaType === "imageMessage" ? "Image 📸" : mediaType === "videoMessage" ? "Video 📹" : "Voice Message"}
       *Size:* \`${fileSize}\`
       *User:* @${msg.sender.split("@")[0]}
@@ -41,19 +53,23 @@ handler.before = async function (msg, { conn }) {
     `.trim();
 
     // Send the media and info message back to the user
-    if (mediaType === "imageMessage" || mediaType === "videoMessage") {
-      await conn.sendFile(
-        conn.user.id,
-        mediaBuffer,
-        mediaType === "imageMessage" ? "error.jpg" : "error.mp4",
-        infoMessage,
-        msg,
-        false,
-        { "mentions": [msg.sender] }
-      );
-    } else if (mediaType === "audioMessage") {
-      await conn.reply(conn.user.id, infoMessage, msg, { "mentions": [msg.sender] });
-      await conn.sendMessage(conn.user.id, { audio: mediaBuffer, fileName: "error.mp3", mimetype: "audio/mpeg", ptt: true }, { quoted: msg });
+    try {
+      if (mediaType === "imageMessage" || mediaType === "videoMessage") {
+        await conn.sendFile(
+          conn.user.id,
+          mediaBuffer,
+          mediaType === "imageMessage" ? "error.jpg" : "error.mp4",
+          infoMessage,
+          msg,
+          false,
+          { mentions: [msg.sender] }
+        );
+      } else if (mediaType === "audioMessage") {
+        await conn.reply(conn.user.id, infoMessage, msg, { mentions: [msg.sender] });
+        await conn.sendMessage(conn.user.id, { audio: mediaBuffer, fileName: "error.mp3", mimetype: "audio/mpeg", ptt: true }, { quoted: msg });
+      }
+    } catch (error) {
+      console.error('Failed to send media message:', error);
     }
   }
 };
